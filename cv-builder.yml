@@ -1,0 +1,36 @@
+...
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cv-builder
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cv-builder
+  template:
+    metadata:
+      labels:
+        app: my-react-app
+    spec:
+      containers:
+      - name: cv-builder
+        image: 1172dipu/resume-builder:latest
+        ports:
+        
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cv-builder
+spec:
+  selector:
+    app: cv-builder
+  ports:
+    - name: cv-builder
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer
+
+---
